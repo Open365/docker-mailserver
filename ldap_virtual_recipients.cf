@@ -1,0 +1,7 @@
+bind = yes
+bind_dn = MANAGERDN
+bind_pw = MANAGERPWD
+server_host = LDAPHOST
+search_base = BASEDN
+query_filter = (mail=%s)
+result_attribute = mail

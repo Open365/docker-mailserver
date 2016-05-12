@@ -1,0 +1,15 @@
+auth_mechanisms = plain login
+
+passdb {
+    driver = checkpassword
+    args = /opt/auth/checkpassword.sh
+}
+passdb {
+    driver = ldap
+    args = /etc/dovecot/auth-ldap.conf.ext
+}
+userdb {
+    driver = static
+    args = uid=vmail gid=vmail home=/mnt/rawFS/users/%n/mailbox allow_all_users=yes
+}
+

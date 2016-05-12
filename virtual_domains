@@ -1,0 +1,5 @@
+user = %USER%
+password = %PWD%
+dbname = %DB%
+query = SELECT domain AS virtual FROM domains WHERE domain='%s'
+hosts = %HOST%
