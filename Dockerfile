@@ -34,8 +34,7 @@ RUN apt-get update && \
     apt-get clean
 
 RUN curl -sL https://deb.nodesource.com/setup_0.10 | bash -
-RUN npm config set registry http://artifacts.eyeosbcn.com/nexus/content/groups/npm/ && \
-    curl -L https://releases.hashicorp.com/serf/0.6.4/serf_0.6.4_linux_amd64.zip -o serf.zip && \
+RUN curl -L https://releases.hashicorp.com/serf/0.6.4/serf_0.6.4_linux_amd64.zip -o serf.zip && \
 	unzip serf.zip && \
 	mv serf /usr/bin/serf && \
 	npm install -g npm@2.14.4
