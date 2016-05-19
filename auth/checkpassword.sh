@@ -34,7 +34,9 @@ read -d $'\0' -r -u $INPUT_FD USER
 read -d $'\0' -r -u $INPUT_FD PASS
 
 export USER="`echo \"$USER\" | tr 'A-Z' 'a-z'`"
-export HOME="/mnt/rawFS/users/$USER/mailbox/"
+PASSWORD=$2
+DOMAIN=`node -e "console.log(JSON.parse(JSON.parse(process.argv[1]).c).domain)" $PASSWORD`
+export HOME="/mnt/rawFS/users/$DOMAIN/$USER/mailbox/"
 
 lookup_result=`credentials_verify "$USER" "$PASS"` || {
 	# If it failed, consider it an internal temporary error.
