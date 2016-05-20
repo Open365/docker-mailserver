@@ -34,8 +34,7 @@ read -d $'\0' -r -u $INPUT_FD USER
 read -d $'\0' -r -u $INPUT_FD PASS
 
 export USER="`echo \"$USER\" | tr 'A-Z' 'a-z'`"
-PASSWORD=$2
-DOMAIN=`node -e "console.log(JSON.parse(JSON.parse(process.argv[1]).c).domain)" $PASSWORD`
+DOMAIN=`node -e "console.log(JSON.parse(JSON.parse(process.argv[1]).c).domain)" $PASS`
 export HOME="/mnt/rawFS/users/$DOMAIN/$USER/mailbox/"
 
 lookup_result=`credentials_verify "$USER" "$PASS"` || {
