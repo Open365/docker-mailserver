@@ -10,6 +10,6 @@ passdb {
 }
 userdb {
     driver = static
-    args = uid=vmail gid=vmail home=/mnt/rawFS/users/%n/mailbox allow_all_users=yes
+    args = uid=vmail gid=vmail home=/mnt/rawFS/users/%d/%n/mailbox allow_all_users=yes
 }
 
