@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
 eyeos-service-ready-notify-cli &
-if [ $EYEOS_USE_MULTITENANT == "true" ]
-then
-    mailPath=maildir:/mnt/rawFS/users/%d/%n/mailbox:LAYOUT=fs
-else
-    mailPath=maildir:/mnt/rawFS/users/%n/mailbox:LAYOUT=fs
-fi
+mailPath=maildir:/mnt/rawFS/users/%d/%n/mailbox:LAYOUT=fs
 
 sed -i 's@LDAPHOST@'$EYEOS_MAILSERVER_LDAP_URL'@g' /etc/dovecot/auth-ldap.conf.ext
 sed -i 's@MANAGERDN@'$EYEOS_MAILSERVER_MANAGER_DN'@g' /etc/dovecot/auth-ldap.conf.ext
