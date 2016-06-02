@@ -15,6 +15,12 @@ ERR_PERMFAIL=1
 ERR_NOUSER=3
 ERR_TEMPFAIL=111
 
+# retrieve environment from file if it exists (eyeos-auth needs some envars)
+if [ -r /tmp/environment ]
+then
+	. /tmp/environment
+fi
+
 # Credentials verification function. Given a user name and password it should output non-empty
 # string (this implementation outputs 'user:password') in case supplied credentials are valid
 # or nothing if they are not. Return non-zero code in case of error.
@@ -34,7 +40,8 @@ read -d $'\0' -r -u $INPUT_FD USER
 read -d $'\0' -r -u $INPUT_FD PASS
 
 export USER="`echo \"$USER\" | tr 'A-Z' 'a-z'`"
-export HOME="/mnt/rawFS/users/$USER/mailbox/"
+DOMAIN=`node -e "console.log(JSON.parse(JSON.parse(process.argv[1]).c).domain)" $PASS`
+export HOME="/mnt/rawFS/users/$DOMAIN/$USER/mailbox/"
 
 lookup_result=`credentials_verify "$USER" "$PASS"` || {
 	# If it failed, consider it an internal temporary error.
