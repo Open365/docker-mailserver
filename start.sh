@@ -19,6 +19,8 @@ sed -i 's@%PWD%@'$MYSQL_MAIL_PWD'@g' /etc/postfix/virtual_domains.cf
 sed -i 's@%DB%@'$MYSQL_MAIL_DB'@g' /etc/postfix/virtual_domains.cf
 sed -i 's@%HOST%@'$MYSQL_HOST'@g' /etc/postfix/virtual_domains.cf
 
+sed -i 's@%MAILSERVER_HOSTNAME%@'"$EYEOS_MAILSERVER_HOSTNAME"'@g' /etc/postfix/main.cf
+
 # save container envars to a file to be able to be sourced later in a script
 declare -p -x > /tmp/environment
 eyeos-run-server --serf /bin/services.sh
