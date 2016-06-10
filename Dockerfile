@@ -44,6 +44,7 @@ RUN	npm install -g eyeos-run-server eyeos-tags-to-dns eyeos-service-ready-notify
 # postfix configuration
 RUN echo "mail.docker.container" > /etc/mailname
 ADD ./postfix.main.cf /etc/postfix/main.cf
+ADD ./postfix.login_maps.pcre /etc/postfix/login_maps.pcre
 ADD ./postfix.master.cf.append /etc/postfix/master-additional.cf
 RUN cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
 
