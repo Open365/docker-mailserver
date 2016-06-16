@@ -72,6 +72,6 @@ EXPOSE 587
 EXPOSE 993
 
 COPY auth /opt/auth
-RUN cd /opt/auth && chmod +x checkpassword.sh && npm install
+RUN cd /opt/auth && chmod +x checkpassword.sh && npm install --production
 
 CMD /bin/start.sh
