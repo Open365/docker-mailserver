@@ -12,6 +12,11 @@ ENV \
 	MYSQL_MAIL_DB=mail \
 	MYSQL_HOST=mysql.service.consul
 
+# add user vmail who own all mail folders
+RUN \
+	addgroup -g 5000 vmail && \
+	adduser -G root -u 5000 -h /srv/mail -D -H vmail
+
 RUN apk update && \
  apk add \
   postfix \
@@ -30,10 +35,6 @@ RUN	npm install -g --production eyeos-service-ready-notify-cli
 ADD ./postfix/ /etc/postfix/
 RUN echo "mail.docker.container" > /etc/mailname && \
 	cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
-
-# add user vmail who own all mail folders
-RUN groupadd -g 5000 vmail
-RUN useradd -g root -u 5000 vmail -d /srv/vmail -m
 
 # dovecot configuration
 ADD ./dovecot/ /etc/dovecot/
