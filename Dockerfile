@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM docker-registry.eyeosbcn.com/alpine6-node-base
 
 ENV \
 	DEBIAN_FRONTEND=noninteractive \
@@ -12,24 +12,19 @@ ENV \
 	MYSQL_MAIL_DB=mail \
 	MYSQL_HOST=mysql.service.consul
 
-COPY apt-sources.list /etc/apt/sources.list
+RUN apk update && \
+ apk add \
+  postfix \
+  postfix-ldap \
+  postfix-mysql \
+  postfix-pcre \
+  postgrey \
+  dovecot \
+  dovecot-ldap \
+  rsyslog
 
-RUN locale-gen en_US en_US.UTF-8 && dpkg-reconfigure locales
 
-RUN apt-get update && \
-    apt-get install -y --force-yes ssl-cert postfix postfix-pcre postfix-ldap postgrey dovecot-imapd dovecot-ldap \
-                                   nodejs-legacy npm curl build-essential unzip git rsyslog dnsmasq postfix-mysql && \
-    apt-get -y -q autoclean && \
-    apt-get -y -q autoremove && \
-    apt-get clean
-
-RUN curl -sL https://deb.nodesource.com/setup_0.10 | bash -
-RUN curl -L https://releases.hashicorp.com/serf/0.6.4/serf_0.6.4_linux_amd64.zip -o serf.zip && \
-	unzip serf.zip && \
-	mv serf /usr/bin/serf && \
-	npm install -g npm@2.14.4
-
-RUN	npm install -g eyeos-run-server eyeos-tags-to-dns eyeos-service-ready-notify-cli
+RUN	npm install -g --production eyeos-service-ready-notify-cli
 
 # postfix configuration
 ADD ./postfix/ /etc/postfix/
