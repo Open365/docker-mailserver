@@ -1,7 +1,16 @@
 FROM ubuntu:14.04
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV WHATAMI mailserver
+ENV \
+	DEBIAN_FRONTEND=noninteractive \
+	WHATAMI=mailserver \
+	EYEOS_MAILSERVER_LDAP_URL=ldap://ldap.service.consul \
+	EYEOS_MAILSERVER_LDAP_DN=ou=People,dc=eyeos,dc=com \
+	EYEOS_MAILSERVER_MANAGER_DN=cn=Manager,dc=eyeos,dc=com \
+	EYEOS_MAILSERVER_MANAGER_PWD=manager \
+	MYSQL_MAIL_USER=mail \
+	MYSQL_MAIL_PWD=supersecret \
+	MYSQL_MAIL_DB=mail \
+	MYSQL_HOST=mysql.service.consul
 
 COPY apt-sources.list /etc/apt/sources.list
 
@@ -61,16 +70,6 @@ EXPOSE 143
 EXPOSE 587
 #IMAPS
 EXPOSE 993
-
-ENV EYEOS_MAILSERVER_LDAP_URL ldap://ldap.service.consul
-ENV EYEOS_MAILSERVER_LDAP_DN ou=People,dc=eyeos,dc=com
-ENV EYEOS_MAILSERVER_MANAGER_DN cn=Manager,dc=eyeos,dc=com
-ENV EYEOS_MAILSERVER_MANAGER_PWD manager
-
-ENV MYSQL_MAIL_USER mail
-ENV MYSQL_MAIL_PWD supersecret
-ENV MYSQL_MAIL_DB mail
-ENV MYSQL_HOST mysql.service.consul
 
 COPY auth /opt/auth
 RUN cd /opt/auth && chmod +x checkpassword.sh && npm install
