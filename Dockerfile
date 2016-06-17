@@ -47,15 +47,7 @@ RUN groupadd -g 5000 vmail
 RUN useradd -g root -u 5000 vmail -d /srv/vmail -m
 
 # dovecot configuration
-ADD ./dovecot.mail /etc/dovecot/conf.d/10-mail.conf
-ADD ./dovecot.ssl /etc/dovecot/conf.d/10-ssl.conf
-ADD ./dovecot.auth /etc/dovecot/conf.d/10-auth.conf
-ADD ./dovecot.master /etc/dovecot/conf.d/10-master.conf
-ADD ./dovecot.lda /etc/dovecot/conf.d/15-lda.conf
-ADD ./dovecot.imap /etc/dovecot/conf.d/20-imap.conf
-ADD ./auth-ldap.conf /etc/dovecot/auth-ldap.conf.ext
-# add verbose logging
-ADD ./dovecot.logging /etc/dovecot/conf.d/10-logging.conf
+ADD ./dovecot/ /etc/dovecot/
 
 COPY start.sh /bin/start.sh
 RUN chmod +x /bin/start.sh
