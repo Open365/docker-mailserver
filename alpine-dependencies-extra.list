@@ -1,0 +1,14 @@
+# Install packages to images docker, "common" is declared into dependencies.list of alpine6-node-base.
+add="
+  postfix
+  postfix-ldap
+  postfix-mysql
+  postfix-pcre
+  postgrey
+  dovecot
+  dovecot-ldap
+  rsyslog
+"
+
+# Delete packages to images docker, "common" is declared into dependencies.list of alpine6-node-base.
+del=""

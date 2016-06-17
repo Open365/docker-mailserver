@@ -17,17 +17,10 @@ RUN \
 	addgroup -g 5000 vmail && \
 	adduser -G root -u 5000 -h /srv/mail -D -H vmail
 
-RUN apk update && \
- apk add \
-  postfix \
-  postfix-ldap \
-  postfix-mysql \
-  postfix-pcre \
-  postgrey \
-  dovecot \
-  dovecot-ldap \
-  rsyslog
+COPY alpine* /var/service/
 
+RUN \
+	/scripts-base/buildDependencies.sh --install
 
 RUN	npm install -g --production eyeos-service-ready-notify-cli
 
