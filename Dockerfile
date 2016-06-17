@@ -32,15 +32,9 @@ RUN curl -L https://releases.hashicorp.com/serf/0.6.4/serf_0.6.4_linux_amd64.zip
 RUN	npm install -g eyeos-run-server eyeos-tags-to-dns eyeos-service-ready-notify-cli
 
 # postfix configuration
-RUN echo "mail.docker.container" > /etc/mailname
-ADD ./postfix.main.cf /etc/postfix/main.cf
-ADD ./postfix.login_maps.pcre /etc/postfix/login_maps.pcre
-ADD ./postfix.master.cf.append /etc/postfix/master-additional.cf
-RUN cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
-
-# configure mail delivery to dovecot
-ADD ./virtual_domains /etc/postfix/virtual_domains.cf
-ADD ./ldap_virtual_recipients.cf /etc/postfix/ldap_virtual_recipients.cf
+ADD ./postfix/ /etc/postfix/
+RUN echo "mail.docker.container" > /etc/mailname && \
+	cat /etc/postfix/master-additional.cf >> /etc/postfix/master.cf
 
 # add user vmail who own all mail folders
 RUN groupadd -g 5000 vmail
