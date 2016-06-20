@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+THISDIR="$(cd "$(dirname "$0")" && pwd)"
+
 echo "Test: IMAP server should allow auth with correct user and pwd"
-python3 test_imap.py
+python3 "$THISDIR/test_imap.py"
 retval=$?
 
 if [ $retval -ne 0 ] ; then
