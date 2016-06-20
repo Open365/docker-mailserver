@@ -43,19 +43,17 @@ RUN useradd -g root -u 5000 vmail -d /srv/vmail -m
 # dovecot configuration
 ADD ./dovecot/ /etc/dovecot/
 
-COPY start.sh /bin/start.sh
-RUN chmod +x /bin/start.sh
-COPY services.sh /bin/services.sh
-RUN chmod +x /bin/services.sh
+COPY ["start.sh", "services.sh", "/bin/"]
 
-# smtp port for incoming mail
-EXPOSE 25 
-# imap port
-EXPOSE 143
-# smtp port for outgoing
-EXPOSE 587
-#IMAPS
-EXPOSE 993
+# 25: smtp port for incoming mail
+# 143: imap port
+# 587: smtp port for outgoing
+# 993: IMAPS
+EXPOSE \
+	25 \
+	143 \
+	587 \
+	993
 
 COPY auth /opt/auth
 RUN cd /opt/auth && chmod +x checkpassword.sh && npm install --production
