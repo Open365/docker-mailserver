@@ -1,7 +1,6 @@
 FROM docker-registry.eyeosbcn.com/alpine6-node-base
 
 ENV \
-	DEBIAN_FRONTEND=noninteractive \
 	WHATAMI=mailserver \
 	EYEOS_MAILSERVER_LDAP_URL=ldap://ldap.service.consul \
 	EYEOS_MAILSERVER_LDAP_DN=ou=People,dc=eyeos,dc=com \
