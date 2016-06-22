@@ -46,4 +46,4 @@ EXPOSE \
 COPY auth /opt/auth
 RUN cd /opt/auth && chmod +x checkpassword.sh && npm install --production
 
-CMD /bin/start.sh
+CMD ["/bin/start.sh"]

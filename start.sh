@@ -23,4 +23,5 @@ sed -i 's@%MAILSERVER_HOSTNAME%@'"$EYEOS_MAILSERVER_HOSTNAME"'@g' /etc/postfix/m
 
 # save container envars to a file to be able to be sourced later in a script
 declare -p -x > /tmp/environment
-eyeos-run-server --serf /bin/services.sh
+
+exec eyeos-run-server --serf /bin/services.sh
