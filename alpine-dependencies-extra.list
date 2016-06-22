@@ -5,6 +5,7 @@ add="
   postfix-mysql
   postfix-pcre
   postgrey
+  perl-netaddr-ip
   dovecot
   dovecot-ldap
   rsyslog
